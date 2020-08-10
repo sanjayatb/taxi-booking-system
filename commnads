@@ -14,4 +14,5 @@ twine upload dist/*
 ##Local install
 pip install -e .
 
-
+##Install
+pip install -i https://test.pypi.org/simple/ super-taxi-api

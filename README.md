@@ -11,7 +11,7 @@ pip install super-taxi-api==0.0.1
 ```
 To install test package
 ```sh
-pip install -i https://test.pypi.org/simple/ super-taxi==0.0.2
+pip install -i https://test.pypi.org/simple/ super-taxi-api
 ```
 
 ## Running
