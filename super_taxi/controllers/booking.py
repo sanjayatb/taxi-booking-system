@@ -13,8 +13,8 @@ class BookingController:
         if self.handler is None:
             raise Exception('No handler found')
 
-        source = Coordinate(request.source['x'], request.source['y'])
-        destination = Coordinate(request.destination['x'], request.destination['y'])
+        source = Coordinate(request['source']['x'], request['source']['y'])
+        destination = Coordinate(request['destination']['x'], request['destination']['y'])
 
         ride = Ride(source, destination)
         taxi = self.handler.get_nearest_taxi(ride)

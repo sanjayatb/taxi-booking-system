@@ -1,10 +1,8 @@
-from super_taxi.api.booking_api import app
 from super_taxi.core.taxi_manager import taxi_register,taxi_manager
 from super_taxi.core.ride_handler import RideHandler
 from super_taxi.controllers.booking import book_controller
-from super_taxi.model.generics import Vehicle
 from super_taxi.core.clock import Clock
-from super_taxi.model.taxis import Taxi,TaxiCar,TaxiSuvCar
+from super_taxi.model.taxis import Taxi
 from super_taxi.core.taxi_grid import grid
 
 
@@ -22,8 +20,8 @@ class TaxiSystem:
             self.__taxi_register.register(taxi)
         print("Registered taxis : ",[taxi.id for taxi in taxi_list])
 
-    def start_service(self,taxi_ids:Taxi):
-        taxi_list = self.__taxi_register.get_all_registered_vehicles()
+    def opt_in_for_rides(self,taxi_ids:Taxi):
+        taxi_list = self.__taxi_register.get_all_registered_taxis()
         for taxi in taxi_list:
             if taxi.id in taxi_ids:
                 self.__taxi_manager.opt_in(taxi)
@@ -42,11 +40,3 @@ class TaxiSystem:
 
 
 taxi_system = TaxiSystem()
-
-if __name__ == '__main__':
-    taxis = [TaxiCar(1),TaxiSuvCar(2),TaxiCar(3),Taxi(4),Taxi()]
-    taxi_system.register(taxis)
-    taxi_system.start_service(taxi_ids=[1,2,3])
-    taxi_system.run()
-
-    app.run(port=8080)

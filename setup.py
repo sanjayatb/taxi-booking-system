@@ -9,22 +9,27 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='super-taxi',
+    name='super-taxi-api',
     version='0.0.1',
     description='Simple taxi booking api',
     author='Sanjaya Bandara',
     author_email='arstbandara@gmail.com',
     url='https://github.com/sanjayatb/taxi-booking-system',
+    py_modules=["super_taxi","api","controllers","core","model"],
     packages=find_packages(),
     keywords=['Taxi', 'booking'],
     package_data={'super_taxi': ['testFiles/test1.html']},
     include_package_data=True,
-    install_requires=[],
+    install_requires=["flask","requests"],
+    extras_require = {
+        "dev":["pytest>=3.7"]
+    },
     entry_points={
         'console_scripts' : [
-            'taxi-booking-api = __main__:main'
+            'super-taxi-api = super_taxi.__main__:main'
         ]
     },
+    python_requires='>=3.6',
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",

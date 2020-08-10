@@ -7,7 +7,17 @@ Simple api for taxi booking
 ## Installing
 
 ```sh
-pip install super-taxi
+pip install super-taxi-api==0.0.1
+```
+To install test package
+```sh
+pip install -i https://test.pypi.org/simple/ super-taxi==0.0.2
+```
+
+## Running
+Execute below in terminal
+```sh
+super-taxi-api
 ```
 
 ### APIs
