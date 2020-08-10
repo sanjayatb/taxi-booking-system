@@ -21,10 +21,12 @@ class TaxiGrid(Grid):
     def __update_position(self):
         for taxi in self.taxis:
             if taxi.ride is None:
-                return
+                continue
             current = taxi.position
             destination = taxi.ride.destination if taxi.ride.on_trip else taxi.ride.source
+            # print(f"id : {taxi.id} before : {current} : {destination}")
             self.__move(taxi, destination.x - current.x, destination.y - current.y)
+            # print(f"id : {taxi.id} after  : {current} : {destination}")
             if current.x == taxi.ride.source.x and current.y == taxi.ride.source.y:  ## Taxi reach pickup
                 print(f"\ttaxi : {taxi.id} reached pickup : {current}")
                 taxi.ride.on_trip = True

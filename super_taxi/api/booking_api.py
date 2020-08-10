@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, abort
 from super_taxi.controllers.booking import book_controller
-from super_taxi.model.generics import ResponseEncoder
+from super_taxi.model.generics import ResponseEncoder,Request
 
 app = Flask(__name__)
 app.json_encoder = ResponseEncoder
@@ -12,7 +12,8 @@ def book_task():
     if not data or not 'source' in data or not 'destination' in data:
         abort(400)
 
-    response = jsonify(book_controller.create_booking(data))
+    _request = Request(data)
+    response = jsonify(book_controller.create_booking(_request))
     print(response)
     return response, 200
 
@@ -25,5 +26,5 @@ def tick_task():
 
 @app.route('/api/reset', methods=['PUT'])
 def reset_task():
-    # book_controller.reset()
+    book_controller.reset()
     return jsonify({}), 200

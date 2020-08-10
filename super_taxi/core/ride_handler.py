@@ -43,23 +43,24 @@ class RideHandler(TimerCallBack):
         return self.__booked_taxis
 
     def time_tick(self, time_unit=0):
-        self.__update_time()
+        self.__check_status()
         self.__print_state()
 
-    def __update_time(self):
-        for vehicle in self.__booked_taxis:
-            if vehicle.ride.remaining_time > 0:
-                vehicle.ride.remaining_time -= 1
-            elif vehicle.ride.remaining_time == 0:
-                vehicle.ride = None
-                vehicle.booked = False
-                self.__available_taxis.append(vehicle)
-                self.__booked_taxis.remove(vehicle)
+    def __check_status(self):
+        for taxi in self.__booked_taxis:
+            if taxi.ride and taxi.ride.remaining_time > 0:
+                taxi.ride.remaining_time -= 1
+            elif taxi.ride and taxi.ride.remaining_time == 0:
+                taxi.position = taxi.ride.destination
+                taxi.ride = None
+                taxi.booked = False
+                self.__available_taxis.append(taxi)
+                self.__booked_taxis.remove(taxi)
 
     def reset(self):
-        self.__booked_taxis.clear()
-        self.__available_taxis.clear()
-        self.__available_taxis.extend(taxi_manager.get_active_taxis())
+        self.__available_taxis.extend(self.__booked_taxis)
+        for taxi in self.__available_taxis:
+            taxi.reset()
 
     def __print_state(self):
         print("Available taxis count : ",
@@ -69,5 +70,5 @@ class RideHandler(TimerCallBack):
 
         print("Booked taxis count : ", len(self.__booked_taxis) if len(self.__booked_taxis) != 0 else "No taxis")
         for taxi in self.__booked_taxis:
-            print(
-                f"\ttaxi id : {taxi.id}, from: {taxi.ride.source}, to: {taxi.ride.destination},time_remain : {taxi.ride.remaining_time}")
+            if taxi.ride:
+                print(f"\ttaxi id : {taxi.id}, from: {taxi.ride.source}, to: {taxi.ride.destination},time_remain : {taxi.ride.remaining_time}")

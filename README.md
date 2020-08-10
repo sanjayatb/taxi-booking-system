@@ -1,28 +1,33 @@
-# super-taxi
-Simple api for taxi booking
+# super-taxi-api
+Simple api for taxi booking named as super-taxi
 
 ## Dependencies
 - [Flask](https://github.com/pallets/flask)
 
 ## Installing
-
+To install the api execute below command
 ```sh
-pip install super-taxi-api==0.0.1
+pip install super-taxi-api
 ```
-To install test package
+If you want to install from test org, for development mode use below
 ```sh
 pip install -i https://test.pypi.org/simple/ super-taxi-api
 ```
 
 ## Running
-Execute below in terminal
+To run with rest api tick option which update system service time,
+Execute below in terminal to start the api
 ```sh
 super-taxi-api
+```
+To run with system clock enable. This will internally start a clock which update the time tick
+```sh
+super-taxi-api --clock
 ```
 
 ### APIs
 
-Rest apis for book a taxi
+Rest apis for book a taxi. All cars starts at (0,0) position of the map
 
 #### `POST /api/book`
 
@@ -32,12 +37,12 @@ Pick the nearest available car to the customer location and return the total tim
 ```json
 {
   "source": {
-    "x": 0,
+    "x": 1,
     "y": 0
   },
   "destination": {
-    "x": 2,
-    "y": 3
+    "x": 1,
+    "y": 1
   }
 }
 ```
@@ -46,7 +51,7 @@ Pick the nearest available car to the customer location and return the total tim
 ```json
 {
   "car_id": 1,
-  "total_time": 10
+  "total_time": 2
 }
 ```
 - All car are available initially, and become booked once it is assigned to a customer. It will remain booked until it reaches its destination, and immediately become available again.

@@ -13,7 +13,8 @@ class BookingTestCase(unittest.TestCase):
         self.queue.append(self.car2)
 
     def test_create_booking(self):
-        input = { "source": {'x': 1, 'y': 0},  "destination": {'x': 1, 'y': 1}}
+        input = { 'source': {'x': 1, 'y': 0},  'destination': {'x': 1, 'y': 1}}
+
         request = Request(input)
         self.assertRaises(Exception,book_controller.create_booking,request)
 

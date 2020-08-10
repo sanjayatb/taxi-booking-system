@@ -28,11 +28,13 @@ class TaxiSystem:
                 self.__grid.add_taxis(taxi)
         print("Opt In taxis : ", [taxi.id for taxi in self.__taxi_manager.get_active_taxis()])
 
-    def run(self):
+    def run(self,run_clock=False):
         self.__ride_handler = RideHandler(taxi_manager.get_active_taxis())
         self.__clock = Clock([self.__ride_handler, self.__grid])
         self.__book_controller.assign_handler(self.__ride_handler)
-        self.__clock.start()
+        self.__book_controller.assign_clock(self.__clock)
+        if run_clock:  # Default will run system clock
+            self.__clock.start()
 
     def reset(self):
         self.__ride_handler = RideHandler(self.__taxi_manager.get_active_taxis())

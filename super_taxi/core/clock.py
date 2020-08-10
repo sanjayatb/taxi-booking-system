@@ -17,16 +17,16 @@ class Clock(Thread):
 
     def tick(self):
         self.__time_counter +=1
+        for call_back in self.call_backs:
+            call_back.time_tick(self.__time_counter)
 
     def run(self) -> None:
         self.running = True
         while self.running:
             time.sleep(self.time_unit)
-            self.__time_counter += 1
             print("#########################################")
             print("System Time now :", self.__time_counter)
-            for call_back in self.call_backs:
-                call_back.time_tick(self.__time_counter)
+            self.tick()
 
     def stop(self):
         self.running = False

@@ -19,7 +19,7 @@ class Taxi(Vehicle):
 
     def reset(self):
         self.position = Coordinate(0, 0)
-        self.ride.reset()
+        self.ride = None
         self.booked = False
         self.pickup_distance = 0
 
