@@ -1,5 +1,5 @@
 # super-taxi-api
-Simple rest api for taxi booking
+Simple rest api example for taxi booking
 
 ### Problem statement
 Implement a simple taxi booking system in a 2D grid world with the following criteria:
